@@ -378,6 +378,16 @@ native rg_update_teamscores(const iCtsWins = 0, const iTsWins = 0, const bool:bA
 */
 native rg_create_entity(const classname[], const bool:useHashTable = false);
 
+/**
+ * Removes an entity just like `remove_entity(entity)` or `engfunc(EngFunc_RemoveEntity, entity)`,
+ * but in a more safe manner. Internally calls an `UTIL_Remove` function.
+ *
+ * @param entity Entity index
+ *
+ * @noreturn
+ */
+native rg_remove_entity(const entity);
+
 /*
 * Finds an entity in the world using Counter-Strike's custom FindEntityByString wrapper.
 *

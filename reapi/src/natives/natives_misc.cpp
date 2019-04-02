@@ -526,6 +526,26 @@ cell AMX_NATIVE_CALL rg_create_entity(AMX *amx, cell *params)
 	return 0;
 }
 
+/**
+ * Removes an entity just like `remove_entity(entity)` or `engfunc(EngFunc_RemoveEntity, entity)`,
+ * but in a more safe manner. Internally calls an `UTIL_Remove` function.
+ *
+ * @param entity Entity index
+ *
+ * @noreturn
+ *
+ * native rg_remove_entity(const entity);
+ */
+cell AMX_NATIVE_CALL rg_remove_entity(AMX *amx, cell *params)
+{
+	enum args_e { arg_count, arg_entity };
+
+	auto pEntity = getPrivate<CBaseEntity>(params[arg_entity]);
+	g_ReGameFuncs->UTIL_Remove(pEntity);
+
+	return 0;
+}
+
 /*
 * Finds an entity in the world using Counter-Strike's custom FindEntityByString wrapper.
 *
@@ -2133,6 +2153,7 @@ AMX_NATIVE_INFO Misc_Natives_RG[] =
 	{ "rg_update_teamscores",         rg_update_teamscores         },
 
 	{ "rg_create_entity",             rg_create_entity             },
+	{ "rg_remove_entity",             rg_remove_entity             },
 	{ "rg_find_ent_by_class",         rg_find_ent_by_class         },
 	{ "rg_find_ent_by_owner",         rg_find_ent_by_owner         },
 	{ "rg_find_weapon_bpack_by_name", rg_find_weapon_bpack_by_name },
